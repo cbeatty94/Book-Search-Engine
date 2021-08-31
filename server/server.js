@@ -22,8 +22,19 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.use(routes);
+// app.use(routes);
+
+// db.once('open', () => {
+//   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+// });
+
+app.get('*', (req, res) => {
+  res.sendFile*(path.join(__dirname, '../client/build/index.html'));
+});
 
 db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+    console.log(`GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  })
+})
